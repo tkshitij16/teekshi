@@ -847,15 +847,18 @@
     }
 
     /* ─── SCROLL REVEAL ─── */
-    .reveal {
+    /* Only hide elements once JS confirms it can animate them in.
+       Without body.js-ready (no JS / local file quirks) everything stays visible. */
+    body.js-ready .reveal:not(.visible) {
       opacity: 0;
       transform: translateY(22px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     /* ─── RESPONSIVE ─── */
@@ -1434,16 +1437,41 @@
   });
 
   /* ─── SCROLL REVEAL ─── */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
+  function initReveal() {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+    /* Mark elements already in viewport as visible BEFORE adding js-ready,
+       so they never flash invisible then reappear. */
+    document.querySelectorAll('.reveal').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.classList.add('visible');
+      } else {
+        revealObserver.observe(el);
       }
     });
-  }, { threshold: 0.12 });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    /* Now engage the hide-until-revealed CSS */
+    document.body.classList.add('js-ready');
+
+    /* Failsafe: reveal everything after 4s regardless */
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 4000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
 
   /* ─── AUTO-SHOW FIRST ERA ─── */
   window.addEventListener('load', () => {

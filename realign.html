@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realign with Life — From Stone Age to Informative AI Age</title>
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:       #f5efe6;
+      --cream-deep:  #ece4d8;
+      --sage:        #6b9080;
+      --sage-light:  #a8c5b0;
+      --sage-pale:   #d4e6d9;
+      --earth:       #c9a96e;
+      --earth-dark:  #9e7b48;
+      --charcoal:    #252525;
+      --charcoal-mid:#3d3d3d;
+      --muted:       #7a7a7a;
+      --light:       #b0b0b0;
+      --white:       #ffffff;
+      --border:      rgba(180,160,130,0.25);
+      --card:        rgba(255,255,255,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.025;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(245, 239, 230, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+
+    .nav-brand {
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--sage); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient blobs */
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-blob-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(107,144,128,0.10) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    .hero-blob-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 65%);
+      top: 20%; right: 15%;
+      animation: float-a 9s ease-in-out infinite;
+    }
+
+    .hero-blob-3 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(107,144,128,0.08) 0%, transparent 65%);
+      bottom: 20%; left: 12%;
+      animation: float-b 11s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+      50%      { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+    }
+    @keyframes float-a {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-22px) scale(1.06); }
+    }
+    @keyframes float-b {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(18px); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 2rem;
+      animation: fade-up 1s 0.1s ease both;
+    }
+
+    /* ─── COMPASS ─── */
+    .compass-wrap {
+      margin-bottom: 2.5rem;
+      animation: fade-up 1s 0.2s ease both;
+    }
+
+    .compass-svg {
+      width: 88px; height: 88px;
+    }
+
+    .compass-ring {
+      animation: spin-ring 24s linear infinite;
+      transform-origin: 44px 44px;
+    }
+
+    .compass-needle {
+      animation: sway 4s ease-in-out infinite;
+      transform-origin: 44px 44px;
+    }
+
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes sway {
+      0%,100% { transform: rotate(-8deg); }
+      50%      { transform: rotate(8deg); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5.5vw, 4.2rem);
+      line-height: 1.18;
+      max-width: 820px;
+      margin-bottom: 1.6rem;
+      animation: fade-up 1s 0.3s ease both;
+    }
+
+    .hero h1 .accent { color: var(--sage); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      font-style: italic;
+      margin-bottom: 3rem;
+      animation: fade-up 1s 0.45s ease both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--light);
+      animation: fade-up 1s 1.2s ease both;
+    }
+
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--sage), transparent);
+      animation: pulse-line 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-line {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50%      { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SHARED SECTION ─── */
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .divider-short {
+      width: 50px; height: 2px;
+      background: var(--sage);
+      margin: 1.2rem 0;
+    }
+
+    /* ─── PHILOSOPHY ─── */
+    .philosophy {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 7rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .philosophy h2 {
+      font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+      line-height: 1.28;
+      margin-bottom: 1.5rem;
+    }
+
+    .philosophy p {
+      color: var(--muted);
+      font-size: 0.97rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .philosophy p em { font-style: italic; color: var(--charcoal-mid); }
+
+    .philosophy p strong { color: var(--charcoal); font-weight: 600; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.6rem 1.4rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.07);
+    }
+
+    .stat-num {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 2.2rem;
+      color: var(--sage);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+    }
+
+    /* ─── THREE QUESTIONS (dark) ─── */
+    .three-q {
+      background: var(--charcoal);
+      padding: 7rem 2rem;
+    }
+
+    .three-q-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .three-q .section-label { color: var(--sage-light); }
+
+    .three-q h2 {
+      color: var(--white);
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      margin-bottom: 0.8rem;
+      line-height: 1.28;
+    }
+
+    .three-q .intro-text {
+      color: rgba(255,255,255,0.45);
+      max-width: 580px;
+      margin: 0 auto 4rem;
+      font-size: 0.97rem;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+    }
+
+    .pillar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 2.2rem 1.6rem;
+      transition: all 0.35s;
+      cursor: default;
+    }
+
+    .pillar:hover {
+      background: rgba(107,144,128,0.12);
+      border-color: rgba(107,144,128,0.4);
+      transform: translateY(-6px);
+    }
+
+    .pillar-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .pillar h3 {
+      color: var(--white);
+      font-size: 1.05rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .pillar p {
+      color: rgba(255,255,255,0.42);
+      font-size: 0.84rem;
+      line-height: 1.75;
+    }
+
+    /* ─── TIMELINE ─── */
+    .timeline-section {
+      padding: 7rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .timeline-section h2 {
+      text-align: center;
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-intro {
+      text-align: center;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 3.5rem;
+      font-size: 0.95rem;
+    }
+
+    .tl-shell {
+      background: linear-gradient(135deg, rgba(107,144,128,0.06) 0%, rgba(201,169,110,0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+    }
+
+    /* Horizontal scroll track */
+    .tl-scroll {
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 1.5rem 0.5rem 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--sage-light) transparent;
+    }
+
+    .tl-scroll::-webkit-scrollbar { height: 3px; }
+    .tl-scroll::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 2px; }
+
+    .tl-track {
+      display: flex;
+      min-width: max-content;
+      position: relative;
+      padding: 0 1rem;
+      align-items: flex-start;
+    }
+
+    /* The line */
+    .tl-track::before {
+      content: '';
+      position: absolute;
+      top: 22px; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right,
+        #9e7b48 0%,
+        #c9a96e 15%,
+        #a07040 25%,
+        #6e7e5a 40%,
+        #607a8a 55%,
+        #5080a0 70%,
+        #4090b0 85%,
+        #5090c0 92%,
+        #70a0d0 100%
+      );
+      z-index: 0;
+    }
+
+    .era-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 145px;
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      padding-top: 0;
+    }
+
+    .era-dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 3px solid var(--sage);
+      background: var(--cream);
+      transition: all 0.35s;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 0.8rem;
+    }
+
+    .era-node:hover .era-dot,
+    .era-node.active .era-dot {
+      background: var(--sage);
+      transform: scale(1.55);
+      box-shadow: 0 0 0 7px rgba(107,144,128,0.18);
+    }
+
+    .era-node-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.4;
+      transition: color 0.3s;
+    }
+
+    .era-node-year {
+      font-size: 0.62rem;
+      color: var(--light);
+      margin-top: 0.18rem;
+      text-align: center;
+    }
+
+    .era-node.active .era-node-label {
+      color: var(--sage);
+      font-weight: 600;
+    }
+
+    .era-node[data-era="ai"] .era-dot {
+      border-color: #5090c0;
+    }
+
+    .era-node[data-era="ai"]:hover .era-dot,
+    .era-node[data-era="ai"].active .era-dot {
+      background: #5090c0;
+      box-shadow: 0 0 0 7px rgba(80,144,192,0.18);
+    }
+
+    /* Detail card */
+    .era-detail-wrap {
+      display: none;
+      margin-top: 2rem;
+      animation: fade-up 0.4s ease both;
+    }
+
+    .era-detail-wrap.open { display: block; }
+
+    .era-detail-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 2.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .era-detail-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .era-detail-title {
+      font-family: Georgia, serif;
+      font-size: 1.55rem;
+      color: var(--charcoal);
+    }
+
+    .era-detail-year {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .era-tag {
+      background: var(--sage);
+      color: var(--white);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    .era-desc {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-bottom: 1.4rem;
+      line-height: 1.8;
+    }
+
+    .era-quote {
+      border-left: 3px solid var(--sage);
+      padding-left: 1.2rem;
+      font-style: italic;
+      color: var(--charcoal-mid);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 1.8rem;
+    }
+
+    .bars-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--light);
+      margin-bottom: 1rem;
+    }
+
+    .dbar {
+      margin-bottom: 0.85rem;
+    }
+
+    .dbar-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .dbar-track {
+      height: 5px;
+      background: #eee;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .dbar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s;
+      background: linear-gradient(to right, var(--sage), var(--earth));
+    }
+
+    .dbar-fill.alt {
+      background: linear-gradient(to right, #5090c0, #70b0d0);
+    }
+
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin-top: 1.8rem;
+    }
+
+    .source-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+
+    .s-icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1.4; }
+
+    .s-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .s-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── CTA ─── */
+    .cta-wrap {
+      text-align: center;
+      padding: 8rem 2rem 7rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .cta-wrap h2 {
+      font-size: clamp(1.9rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: 1.4rem;
+    }
+
+    .cta-wrap p {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--charcoal);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2.6rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--sage);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      z-index: 0;
+    }
+
+    .cta-btn:hover::before { transform: translateX(0); }
+    .cta-btn:hover { transform: scale(1.02); }
+
+    .cta-btn span { position: relative; z-index: 1; }
+
+    .cta-note {
+      margin-top: 1.4rem;
+      font-size: 0.76rem;
+      color: var(--light);
+    }
+
+    /* ─── MODAL ─── */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,28,25,0.65);
+      backdrop-filter: blur(10px);
+      z-index: 800;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal-box {
+      background: var(--cream);
+      border-radius: 26px;
+      padding: 3rem;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      animation: fade-up 0.4s ease both;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.4rem; right: 1.6rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.25s;
+      line-height: 1;
+    }
+
+    .modal-close:hover { color: var(--charcoal); }
+
+    .modal-box h3 {
+      font-family: Georgia, serif;
+      font-size: 1.55rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-sub {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .activity-step {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      background: var(--sage);
+      color: var(--white);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-body h4 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--charcoal);
+    }
+
+    .step-body p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .modal-quote {
+      text-align: center;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 1.6rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      text-align: center;
+      padding: 3.5rem 2rem;
+    }
+
+    .footer-brand {
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+      color: var(--white);
+      letter-spacing: 0.12em;
+    }
+
+    .footer-tagline {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-rule {
+      width: 36px; height: 1px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 auto 2rem;
+    }
+
+    .footer-authors {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-authors strong { color: var(--sage-light); }
+
+    .footer-epigraph {
+      margin-top: 1.4rem;
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.22);
+      font-style: italic;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    /* Only hide elements once JS confirms it can animate them in.
+       Without body.js-ready (no JS / local file quirks) everything stays visible. */
+    body.js-ready .reveal:not(.visible) {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 800px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+
+      .philosophy {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 5rem 1.5rem;
+      }
+
+      .pillars { grid-template-columns: 1fr; }
+
+      .timeline-section { padding: 5rem 1.5rem; }
+      .tl-shell { padding: 1.5rem 1rem; }
+
+      .era-detail-card { padding: 1.6rem; }
+      .sources-grid { grid-template-columns: 1fr; }
+
+      .cta-wrap { padding: 6rem 1.5rem 5rem; }
+
+      .modal-box { padding: 2rem 1.5rem; }
+
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+
+      .three-q { padding: 5rem 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.9rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal" role="dialog" aria-modal="true" aria-label="Self-discovery activity">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&#10005;</button>
+    <h3>Your Dopamine Mapping Exercise</h3>
+    <p class="modal-sub">Ten quiet minutes. No algorithm. Just you finding your way back to yourself.</p>
+
+    <div class="activity-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Silence the Feed</h4>
+        <p>Phone face-down. Every tab closed. Sit for three minutes with zero input. Notice what surfaces naturally — those spontaneous thoughts are breadcrumbs back to your real self.</p>
+      </div>
+    </div>
+
+    <div class="activity-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Name Your Last 5 Genuine Smiles</h4>
+        <p>Not from a reel or a meme. From real life — a conversation, a meal, a walk, a moment of creation. Write them down. Look for the pattern. That pattern is your signal.</p>
+      </div>
+    </div>
+
+    <div class="activity-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>The Ancestor Question</h4>
+        <p>If you lived in 1850 — no internet, no algorithm, no infinite scroll — what would you spend your days doing? Your answer reveals your core nature: the human beneath the user.</p>
+      </div>
+    </div>
+
+    <div class="activity-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Define the One Thing</h4>
+        <p>What skill, craft, relationship, or pursuit would feel deeply meaningful even if no one ever witnessed it? That is your compass. Not your career. Not your content. You. Start there today.</p>
+      </div>
+    </div>
+
+    <div class="activity-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Write the Promise</h4>
+        <p>Finish this sentence by hand, on paper: <em>"I feel most alive when..."</em> — read it back to yourself. That sentence is worth more than any algorithm's recommendation about who you should be.</p>
+      </div>
+    </div>
+
+    <p class="modal-quote">"The cave you fear to enter holds the treasure you seek."<br>— Joseph Campbell</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Realign</span>
+  <div class="nav-links">
+    <a href="#philosophy">The Condition</a>
+    <a href="#timeline">The Map</a>
+    <a href="#begin">Begin</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-blob hero-blob-3"></div>
+
+  <p class="hero-eyebrow">A compass for the lost generation &nbsp;·&nbsp; Ages 19 – 29</p>
+
+  <!-- Compass -->
+  <div class="compass-wrap" role="img" aria-label="Compass">
+    <svg class="compass-svg" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- outer ring -->
+      <g class="compass-ring">
+        <circle cx="44" cy="44" r="40" stroke="#6b9080" stroke-width="1" stroke-dasharray="3.5 4.5" opacity="0.45"/>
+        <text x="44" y="9"  text-anchor="middle" fill="#6b9080" font-size="7" font-family="Georgia" opacity="0.8">N</text>
+        <text x="44" y="83" text-anchor="middle" fill="#c9a96e" font-size="7" font-family="Georgia" opacity="0.6">S</text>
+        <text x="80" y="47" text-anchor="middle" fill="#9a9a9a" font-size="7" font-family="Georgia" opacity="0.5">E</text>
+        <text x="8"  y="47" text-anchor="middle" fill="#9a9a9a" font-size="7" font-family="Georgia" opacity="0.5">W</text>
+      </g>
+      <!-- inner ring -->
+      <circle cx="44" cy="44" r="28" stroke="#c9a96e" stroke-width="0.7" opacity="0.3"/>
+      <!-- needle -->
+      <g class="compass-needle">
+        <polygon points="44,16 41,40 44,38 47,40" fill="#6b9080" opacity="0.9"/>
+        <polygon points="44,72 41,48 44,50 47,48" fill="#c9a96e" opacity="0.65"/>
+      </g>
+      <!-- centre dot -->
+      <circle cx="44" cy="44" r="3.5" fill="#6b9080"/>
+      <circle cx="44" cy="44" r="1.5" fill="#f5efe6"/>
+    </svg>
+  </div>
+
+  <h1>
+    Realign with Life<br>
+    <span class="accent">From Stone Age</span><br>
+    to Informative AI Age
+  </h1>
+  <p class="hero-sub">You are not broken. You are living through the most disorienting leap in human history. This is your compass back to yourself.</p>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Explore</span>
+  </div>
+</section>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<div id="philosophy">
+  <div class="philosophy">
+    <div class="philosophy-text reveal">
+      <p class="section-label">The Condition</p>
+      <h2>What happens when algorithms know you better than you know yourself?</h2>
+      <div class="divider-short"></div>
+      <p>For hundreds of thousands of years, humans found meaning through survival, craft, community, and creation. Then — in a single generation — the rules changed. AI thinks for us. Algorithms choose our entertainment. Machines compete for our jobs, our attention, and even our sense of identity.</p>
+      <p>The question our generation faces is no longer <em>"how do I succeed?"</em> It is something deeper: <em>"what does it even mean to be human when machines can do almost everything?"</em></p>
+      <p>Curiosity — the original human superpower — is the one force AI cannot replicate. <strong>Curiosity about life itself.</strong> What will make you happy in 2035? What will satisfaction feel like when creation is instant and effortless? These are not questions a model can answer for you. They are yours alone.</p>
+      <p>This page is not a solution. It is an invitation to stop outsourcing your inner life and start navigating it again.</p>
+    </div>
+
+    <div class="stat-grid reveal" style="transition-delay: 0.15s;">
+      <div class="stat-card">
+        <span class="stat-num">73%</span>
+        <span class="stat-lbl">of Gen Z report feeling purposeless or directionless</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">65%</span>
+        <span class="stat-lbl">believe AI will displace their career within a decade</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">300M</span>
+        <span class="stat-lbl">jobs at structural risk globally by 2030</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">&#8734;</span>
+        <span class="stat-lbl">human potential remains — the question is how to find it</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ THREE QUESTIONS ═══════════ -->
+<div class="three-q">
+  <div class="three-q-inner">
+    <p class="section-label">The Three Great Questions of Our Era</p>
+    <h2>Curiosity is the compass.<br>These are its cardinal directions.</h2>
+    <p class="intro-text">Every generation faced a disruption that forced humanity to redefine what a good life looks like. This one is ours.</p>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <span class="pillar-icon">&#129504;</span>
+        <h3>What will make people happy?</h3>
+        <p>When entertainment is infinite, beauty is filtered, and connection is mediated — what does genuine joy actually feel like from the inside? Happiness must be rediscovered, not downloaded.</p>
+      </div>
+      <div class="pillar reveal" style="transition-delay:0.12s;">
+        <span class="pillar-icon">&#9879;&#65039;</span>
+        <h3>What will satisfaction look like?</h3>
+        <p>When AI produces in seconds what took humans a lifetime to master, where does pride of craft go? Satisfaction must be relocated — from output to process, from product to personhood.</p>
+      </div>
+      <div class="pillar reveal" style="transition-delay:0.24s;">
+        <span class="pillar-icon">&#128302;</span>
+        <h3>How will life feel in the AI age?</h3>
+        <p>We are the first generation writing this script, not inheriting one. The curious among us — not the most optimised, but the most alive — will define what it means to be human in this era.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TIMELINE ═══════════ -->
+<div class="timeline-section" id="timeline">
+  <p class="section-label" style="text-align:center;">The Dopamine Map</p>
+  <h2 class="reveal">How humans have always found their fire</h2>
+  <p class="timeline-intro reveal">Every age had its own engine of meaning — the fuel that made people feel alive. Click any era to trace the journey of human purpose across time.</p>
+
+  <div class="tl-shell reveal">
+    <div class="tl-scroll">
+      <div class="tl-track" id="tl-track">
+
+        <div class="era-node" data-era="stone" onclick="showEra('stone')" id="node-stone" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Stone Age</span>
+          <span class="era-node-year">2.5M–3000 BC</span>
+        </div>
+
+        <div class="era-node" data-era="bronze" onclick="showEra('bronze')" id="node-bronze" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Bronze Age</span>
+          <span class="era-node-year">3000–1200 BC</span>
+        </div>
+
+        <div class="era-node" data-era="ancient" onclick="showEra('ancient')" id="node-ancient" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Ancient Civ.</span>
+          <span class="era-node-year">1200–0 BC</span>
+        </div>
+
+        <div class="era-node" data-era="industrial" onclick="showEra('industrial')" id="node-industrial" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Industrial Rev.</span>
+          <span class="era-node-year">1760–1840</span>
+        </div>
+
+        <div class="era-node" data-era="wars" onclick="showEra('wars')" id="node-wars" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">World Wars</span>
+          <span class="era-node-year">1914–1945</span>
+        </div>
+
+        <div class="era-node" data-era="coldwar" onclick="showEra('coldwar')" id="node-coldwar" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Cold War Era</span>
+          <span class="era-node-year">1947–1991</span>
+        </div>
+
+        <div class="era-node" data-era="computer" onclick="showEra('computer')" id="node-computer" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Computer Boom</span>
+          <span class="era-node-year">1970s–1990s</span>
+        </div>
+
+        <div class="era-node" data-era="internet" onclick="showEra('internet')" id="node-internet" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">Internet Boom</span>
+          <span class="era-node-year">1995–2015</span>
+        </div>
+
+        <div class="era-node" data-era="ai" onclick="showEra('ai')" id="node-ai" tabindex="0" role="button" aria-pressed="false">
+          <div class="era-dot"></div>
+          <span class="era-node-label">AI Boom</span>
+          <span class="era-node-year">2020s – Now</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dynamic detail panel -->
+    <div class="era-detail-wrap" id="era-detail-wrap">
+      <div class="era-detail-card" id="era-detail-card"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CTA ═══════════ -->
+<div class="cta-wrap" id="begin">
+  <p class="section-label">Begin Here</p>
+  <h2 class="reveal">Your compass has always been inside you.</h2>
+  <p class="reveal">The map is not the territory. This page can show the direction — but only you can walk the path. Take ten minutes today. Not for productivity. Not for your feed. For yourself.</p>
+
+  <button class="cta-btn reveal" onclick="openModal()">
+    <span>&#9670;&nbsp; Map Your Dopamine Path</span>
+  </button>
+
+  <p class="cta-note reveal">A ten-minute guided self-discovery exercise. No login. No data collected. Just you.</p>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <p class="footer-brand">Realign</p>
+  <p class="footer-tagline">A life compass for the AI generation</p>
+  <div class="footer-rule"></div>
+  <p class="footer-authors">Created with care by <strong>Adam</strong> &amp; <strong>Kshitij</strong></p>
+  <p class="footer-epigraph">"The unexamined life is not worth living." — Socrates</p>
+</footer>
+
+<script>
+  /* ─── ERA DATA ─── */
+  const ERAS = {
+    stone: {
+      title: 'Stone Age',
+      year: '2.5 Million – 3000 BC',
+      tag: 'Survival & Discovery',
+      desc: 'Humans found deep satisfaction in the most primal acts — survival, belonging, and wonder at the natural world. Life was hard, purpose was unambiguous, and every small victory felt enormous because the stakes were existential.',
+      quote: 'Every successful hunt was a moment of profound communal joy. Fire was magic. The tribe was everything. Purpose was simple, immediate, and total.',
+      bars: [
+        { label: 'Survival reward',       val: 96, alt: false },
+        { label: 'Social bonding',         val: 90, alt: false },
+        { label: 'Creative expression',    val: 28, alt: false },
+      ],
+      sources: [
+        { icon: '&#127993;', name: 'The Hunt',      desc: 'The greatest dopamine hit of the age — success meant survival, status, and communal celebration.' },
+        { icon: '&#128293;', name: 'Fire Mastery',  desc: 'Controlling fire was daily alchemy: warmth, safety, cooked food — a repeatable miracle.' },
+        { icon: '&#129309;', name: 'Tribal Belong', desc: 'Deep, unconditional belonging to a small group who depended on each other entirely.' },
+        { icon: '&#127912;', name: 'Cave Art',      desc: 'The first creative expression — painting stories on walls as a gift to unseen future lives.' },
+      ]
+    },
+    bronze: {
+      title: 'Bronze Age',
+      year: '3000 – 1200 BC',
+      tag: 'Craft & Trade',
+      quote: 'A farmer who grew surplus grain, a smith who forged bronze — they were the innovators of their age. Mastery was magic. Legacy was possible for the first time.',
+      desc: 'Civilisation bloomed. Trade routes connected cultures. Craft became identity. The first cities rose, and with them came ambition, specialisation, and the intoxicating idea that a person could be known for what they made.',
+      bars: [
+        { label: 'Craft mastery',   val: 80, alt: false },
+        { label: 'Trade & exchange', val: 66, alt: false },
+        { label: 'Legacy building', val: 58, alt: false },
+      ],
+      sources: [
+        { icon: '&#9954;&#65039;',  name: 'Metalworking',   desc: 'Forging bronze was alchemy — transforming raw earth into tools of power and beauty.' },
+        { icon: '&#127806;',        name: 'Agriculture',    desc: 'Growing food beyond immediate need — the birth of planning, saving, and delayed gratification.' },
+        { icon: '&#127963;&#65039;', name: 'Building Cities', desc: 'Constructing enduring structures gave humans a new relationship with time — the idea of legacy.' },
+        { icon: '&#128221;',        name: 'Early Writing',  desc: 'Recording thought — the first step toward collective, transferable intelligence.' },
+      ]
+    },
+    ancient: {
+      title: 'Ancient Civilisations',
+      year: '1200 BC – 500 AD',
+      tag: 'Philosophy & Power',
+      quote: 'Socrates walked the streets of Athens asking questions. That was considered radical — and dangerous enough to kill him for. Asking honest questions is still the bravest act.',
+      desc: 'Greece. Rome. India. Egypt. The age of philosophy, theatre, conquest, and spiritual inquiry. Humans began asking WHY — and found that the question itself was nourishing. Art, reason, and faith competed to explain what a good life looked like.',
+      bars: [
+        { label: 'Intellectual pursuit',  val: 74, alt: false },
+        { label: 'Artistic creation',     val: 70, alt: false },
+        { label: 'Spiritual meaning',     val: 82, alt: false },
+      ],
+      sources: [
+        { icon: '&#127917;', name: 'Art & Theatre',    desc: 'Drama, sculpture, poetry — beauty became a purpose in itself, not merely decoration.' },
+        { icon: '&#129504;', name: 'Philosophy',        desc: 'The radical idea that careful, honest thinking about life was itself a worthy life's work.' },
+        { icon: '&#9876;&#65039;', name: 'Conquest & Glory', desc: 'Warriors, emperors, explorers — meaning through excellence and the expansion of horizons.' },
+        { icon: '&#128591;', name: 'Spiritual Practice', desc: 'Religion gave suffering meaning and connected individuals to something vaster than themselves.' },
+      ]
+    },
+    industrial: {
+      title: 'Industrial Revolution',
+      year: '1760 – 1840',
+      tag: 'Progress & Production',
+      quote: 'For the first time, a child born poor could die rich — not through luck but through invention. The idea of social mobility rewired human ambition entirely.',
+      desc: 'Machines changed everything. Cities exploded. The clock became the new god. People traded the rhythms of nature for wages and shift patterns — and the modern identity crisis was quietly born alongside the modern economy.',
+      bars: [
+        { label: 'Productivity reward',  val: 86, alt: false },
+        { label: 'Social advancement',   val: 72, alt: false },
+        { label: 'Community & kinship',  val: 42, alt: false },
+      ],
+      sources: [
+        { icon: '&#9881;&#65039;', name: 'Innovation',        desc: 'Inventing machines was intoxicating — each new device a conquest over nature's limits.' },
+        { icon: '&#128200;',       name: 'Social Mobility',   desc: 'Hard work could genuinely change your social class — a revolutionary, motivating concept.' },
+        { icon: '&#127981;',       name: 'Mass Production',   desc: 'The satisfaction of making things at scale — efficiency treated as a form of art.' },
+        { icon: '&#128642;',       name: 'Speed & Distance',  desc: 'Steam trains made the world smaller. Personal horizons expanded beyond the village.' },
+      ]
+    },
+    wars: {
+      title: 'World Wars',
+      year: '1914 – 1945',
+      tag: 'Purpose & Sacrifice',
+      quote: 'Viktor Frankl found meaning in a concentration camp. The most extreme suffering revealed the most profound human truth: purpose is not found — it is chosen.',
+      desc: 'The darkest chapter in modern history — yet paradoxically one of the most purposeful. Shared sacrifice clarified what mattered. People knew with absolute certainty why they were alive, and found extraordinary reserves of resilience in that clarity.',
+      bars: [
+        { label: 'Clarity of purpose',   val: 94, alt: false },
+        { label: 'Social solidarity',    val: 90, alt: false },
+        { label: 'Individual freedom',   val: 22, alt: false },
+      ],
+      sources: [
+        { icon: '&#127919;', name: 'Clear Purpose',    desc: 'Nothing clarifies life like a genuine threat. People knew exactly what they were fighting for.' },
+        { icon: '&#129309;', name: 'Camaraderie',      desc: 'Bonds forged in shared survival reached depths that peacetime friendships rarely approach.' },
+        { icon: '&#128170;', name: 'Resilience',       desc: 'The discovery that humans can endure the unendurable — and still find beauty in small moments.' },
+        { icon: '&#127925;', name: 'Art & Jazz',       desc: 'Music, dance, and culture flourished as people sought and created joy inside darkness.' },
+      ]
+    },
+    coldwar: {
+      title: 'Cold War Era',
+      year: '1947 – 1991',
+      tag: 'Idealism & Culture',
+      quote: 'Woodstock happened. The moon landing happened. The Beatles happened. An entire generation decided that feeling everything, loudly, was itself a form of resistance.',
+      desc: 'The Space Race. Civil Rights. Rock and Roll. Counterculture. A generation that had lived through war decided to push back against conformity — and ignited one of history's richest cultural explosions in the process.',
+      bars: [
+        { label: 'Ideological passion',  val: 84, alt: false },
+        { label: 'Cultural identity',    val: 90, alt: false },
+        { label: 'Collective dreaming',  val: 78, alt: false },
+      ],
+      sources: [
+        { icon: '&#128640;', name: 'Space Race',          desc: 'A species looked at the moon and said "we will go there." Pure, shared, impossible ambition.' },
+        { icon: '&#127928;', name: 'Cultural Revolution', desc: 'Rock, soul, punk — music became a vehicle for collective identity and moral rebellion.' },
+        { icon: '&#9994;',   name: 'Social Movements',   desc: 'Fighting for rights felt intensely alive — belonging to something larger than one life.' },
+        { icon: '&#128250;', name: 'Television',          desc: 'The first time humans saw the wider world from their living room — addictive and world-altering.' },
+      ]
+    },
+    computer: {
+      title: 'Computer Boom',
+      year: '1970s – 1990s',
+      tag: 'Logic & Creation',
+      quote: 'The garage became the new cave. Two people and a machine could change the world. The nerds quietly inherited the earth — and they knew exactly why they were excited to be alive.',
+      desc: 'A new kind of intelligence emerged — and for the first time, human minds and machines began their collaboration. Problem-solving became the ultimate game. The screen became a canvas. The keyboard became a tool of pure creation.',
+      bars: [
+        { label: 'Problem-solving reward', val: 90, alt: false },
+        { label: 'Creative expression',    val: 78, alt: false },
+        { label: 'Novelty & discovery',    val: 92, alt: false },
+      ],
+      sources: [
+        { icon: '&#128187;', name: 'Programming',     desc: 'Writing code felt like pure creation — building entire worlds from logic and intention.' },
+        { icon: '&#127918;', name: 'Video Games',     desc: 'The first generation to discover a new universe of challenge, story, and hard-won achievement.' },
+        { icon: '&#128295;', name: 'Hacking & Tinkering', desc: 'Breaking systems apart to understand them — curiosity given a thrilling new playground.' },
+        { icon: '&#127942;', name: 'Market Disruption', desc: 'Tech entrepreneurs discovered that disruption itself was the ultimate dopamine hit.' },
+      ]
+    },
+    internet: {
+      title: 'Internet Boom',
+      year: '1995 – 2015',
+      tag: 'Connection & Information',
+      quote: 'For a brief golden moment, the internet felt like pure magic — all of human knowledge, instantly accessible, for free. Then attention became currency, and everything changed.',
+      desc: 'The world shrank. Connection exploded. Social media promised belonging and delivered comparison. Information became free — and then weaponised. The attention economy was born, and with it a new kind of loneliness: the loneliness of the perpetually connected.',
+      bars: [
+        { label: 'Access to information',  val: 96, alt: false },
+        { label: 'Social validation',      val: 88, alt: false },
+        { label: 'Genuine human depth',    val: 38, alt: false },
+      ],
+      sources: [
+        { icon: '&#127760;', name: 'Global Connection',  desc: 'Finding your people anywhere on earth — the end of geographic isolation.' },
+        { icon: '&#128241;', name: 'Social Validation',  desc: 'Likes, shares, followers — the gamification of human approval, at scale.' },
+        { icon: '&#128722;', name: 'Infinite Choice',    desc: 'Any product, any content, any person — decision fatigue dressed as freedom.' },
+        { icon: '&#128172;', name: 'Self-Expression',    desc: 'Blogs, vlogs, forums — a global stage for voices that had never had an audience.' },
+      ]
+    },
+    ai: {
+      title: 'AI Boom',
+      year: '2020s – Now (You Are Here)',
+      tag: 'The Open Question',
+      quote: 'You are not competing with AI. You are the first generation asked to define what humans are for when machines can do almost everything. That is not a curse. It is the most interesting question ever posed.',
+      desc: 'AI writes, codes, creates, analyses, and optimises. The old dopamine maps are dissolving. The question that drove every previous era — "how do I master this?" — no longer has a stable answer. Which means the next era belongs to those willing to ask a deeper question.',
+      bars: [
+        { label: 'Algorithm-driven stimulation',  val: 97, alt: false },
+        { label: 'Genuine self-knowledge',         val: 18, alt: false },
+        { label: 'Your unrealised potential here', val: 100, alt: true  },
+      ],
+      sources: [
+        { icon: '&#10067;', name: 'Deep Human Connection', desc: 'In a world of synthetic voices, genuine presence and empathy become rare and profoundly valuable.' },
+        { icon: '&#127807;', name: 'Embodied Experience',  desc: 'Growing food, making things, being in nature — the irreplaceable reality of having a body.' },
+        { icon: '&#127914;', name: 'Authentic Creativity', desc: 'Art born from lived human experience carries weight that no generated output can fabricate.' },
+        { icon: '&#129517;', name: 'Self-Authorship',      desc: 'Understanding what YOU specifically want, feel, and are for — that is the new life\'s work.' },
+      ]
+    }
+  };
+
+  let activeEra = null;
+
+  function showEra(key) {
+    /* deactivate all nodes */
+    document.querySelectorAll('.era-node').forEach(n => {
+      n.classList.remove('active');
+      n.setAttribute('aria-pressed', 'false');
+    });
+
+    /* activate clicked node */
+    const node = document.getElementById('node-' + key);
+    node.classList.add('active');
+    node.setAttribute('aria-pressed', 'true');
+
+    const d = ERAS[key];
+    const isAI = key === 'ai';
+
+    /* build bars HTML */
+    const barsHtml = d.bars.map(b => `
+      <div class="dbar">
+        <div class="dbar-header"><span>${b.label}</span><span>${b.val}%</span></div>
+        <div class="dbar-track">
+          <div class="dbar-fill${b.alt ? ' alt' : ''}" data-val="${b.val}%"></div>
+        </div>
+      </div>
+    `).join('');
+
+    /* build sources HTML */
+    const sourcesHtml = d.sources.map(s => `
+      <div class="source-item">
+        <span class="s-icon">${s.icon}</span>
+        <div>
+          <span class="s-name">${s.name}</span>
+          <span class="s-desc">${s.desc}</span>
+        </div>
+      </div>
+    `).join('');
+
+    const tagStyle = isAI ? 'background:#5090c0;' : '';
+
+    document.getElementById('era-detail-card').innerHTML = `
+      <div class="era-detail-top">
+        <div>
+          <div class="era-detail-title">${d.title}</div>
+          <div class="era-detail-year">${d.year}</div>
+        </div>
+        <span class="era-tag" style="${tagStyle}">${d.tag}</span>
+      </div>
+
+      <p class="era-desc">${d.desc}</p>
+      <div class="era-quote">${d.quote}</div>
+
+      <p class="bars-label">Dopamine Sources — Relative Intensity</p>
+      ${barsHtml}
+
+      <div class="sources-grid">${sourcesHtml}</div>
+    `;
+
+    const wrap = document.getElementById('era-detail-wrap');
+    wrap.classList.add('open');
+
+    /* animate bars after paint */
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.dbar-fill').forEach(b => {
+          b.style.width = b.dataset.val;
+        });
+      });
+    });
+
+    /* smooth scroll to detail on small screens */
+    if (window.innerWidth < 800) {
+      setTimeout(() => {
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+
+    activeEra = key;
+  }
+
+  /* Keyboard support for era nodes */
+  document.querySelectorAll('.era-node').forEach(node => {
+    node.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showEra(node.dataset.era);
+      }
+    });
+  });
+
+  /* ─── MODAL ─── */
+  function openModal() {
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  /* ─── SCROLL REVEAL ─── */
+  function initReveal() {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+    /* Mark elements already in viewport as visible BEFORE adding js-ready,
+       so they never flash invisible then reappear. */
+    document.querySelectorAll('.reveal').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.classList.add('visible');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+
+    /* Now engage the hide-until-revealed CSS */
+    document.body.classList.add('js-ready');
+
+    /* Failsafe: reveal everything after 4s regardless */
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 4000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal);
+  } else {
+    initReveal();
+  }
+
+  /* ─── AUTO-SHOW FIRST ERA ─── */
+  window.addEventListener('load', () => {
+    setTimeout(() => showEra('stone'), 600);
+  });
+</script>
+
+</body>
+</html>
